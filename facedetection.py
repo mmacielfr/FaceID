@@ -38,7 +38,7 @@ for (x, y, w, h) in faces:
   cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
   cv2.imshow(image)
   cv2.waitKey(0)
-"""
+
 for (x, y, w, h) in faces:  
   #RECORTANDO APENAS A REGIÃO DA FACE
   #PERCEBA QUE NO RECORTE, OS EIXOS SÃO INVERSOS
@@ -82,4 +82,3 @@ for (x, y, w, h) in faces:
   imageEmbacado[y:y+h, x:x+w] = embacado
   cv2.imshow(imageEmbacado)
   cv2.waitKey()
-"""
