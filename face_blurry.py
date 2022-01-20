@@ -22,6 +22,21 @@ faces = faceCascade.detectMultiScale(
 print("Found {0} faces!".format(len(faces)))
 
 for (x, y, w, h) in faces:
-  cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
-  cv2.imshow(image)
-  cv2.waitKey(0)
+  #RECORTANDO APENAS A REGIÃO DA FACE
+  #PERCEBA QUE NO RECORTE, OS EIXOS SÃO INVERSOS
+  ROI = image[y:y+h, x:x+w,:] 
+
+  #crie um filtro (no caso esse embaça a image) e aplique
+  #kernel = np.array([[-1, 0, 1], [-2, 0, 2],[-1, 0, 1 ]])
+  kernel = np.ones((5,5),np.float32)/25
+  embacado = cv2.filter2D(ROI,-1,kernel)
+  #LIMITE O VALOR PARA 255
+  embacado[embacado > 255] = 255
+   
+  #'colando' a face avermelhada na foto original
+  #ps.: não é a única forma. 
+  #Pode ser feito o processamento direto na imagem original
+  imageEmbacado = image.copy()
+  imageEmbacado[y:y+h, x:x+w] = embacado
+  cv2.imshow("", imageEmbacado)
+  cv2.waitKey()
